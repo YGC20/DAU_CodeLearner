@@ -56,6 +56,13 @@ function Main({ currentSection, currentLevel, currentLanguage, currentChapter, o
           chapter={currentChapter} // 현재 차시 전달
           onNavigate={onNavigate} // 이전 페이지로 돌아가기 위한 함수 전달
         />}
+      {currentSection === 'ai-exercise' && 
+        <AIExerciseSection 
+          level={currentLevel}
+          language={currentLanguage}
+          chapter={currentChapter}
+          onNavigate={onNavigate}
+        />}
     </main>
   );
 }
@@ -319,6 +326,7 @@ function ExerciseSection({ level, onNavigate }) {
               </td>
               <td>
                 <button onClick={() => onNavigate('exercise-content', level,`${index + 1}차시`)}>문제풀기</button>
+                <button onClick={() => onNavigate('ai-exercise', level, `${index + 1}차시`)}>AI 문제 풀어보기</button>
               </td>
               <td>
                 <span>학습전</span> {/* 학습 전 상태 표시 */}
@@ -332,11 +340,35 @@ function ExerciseSection({ level, onNavigate }) {
   );
 }
 
+function AIExerciseSection({ level, language, chapter, onNavigate }) {
+  return (
+    <section>
+      <h3>{`${language} AI 문제 ${chapter}`}</h3>
+      <p>AI가 생성한 문제를 풀어보세요.</p>
+      <ul>
+        <li>
+          <button onClick={() => alert('AI 정답입니다!')}>AI 정답 1</button>
+        </li>
+        <li>
+          <button onClick={() => alert('AI 오답입니다.')}>AI 오답 2</button>
+        </li>
+        <li>
+          <button onClick={() => alert('AI 오답입니다.')}>AI 오답 3</button>
+        </li>
+        <li>
+          <button onClick={() => alert('AI 오답입니다.')}>AI 오답 4</button>
+        </li>
+      </ul>
+      <button onClick={() => onNavigate('exercise')}>이전 페이지로 돌아가기</button>
+    </section>
+  );
+}
+
 function ExerciseContentSection({ level, language, chapter, onNavigate }) {
   return (
     <section>
       <h3>{`${language} ${level.replace('-', ' ')} ${chapter}`}</h3>
-      {chapter === '1차시' && (
+      
         <div>
           <h4>4지선다형 문제</h4>
           <p>문제를 풀어보세요.</p>
@@ -355,7 +387,7 @@ function ExerciseContentSection({ level, language, chapter, onNavigate }) {
             </li>
           </ul>
         </div>
-      )}
+     
       <button onClick={() => onNavigate('exercise')}>이전 페이지로 돌아가기</button>
     </section>
   );
